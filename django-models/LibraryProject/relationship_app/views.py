@@ -29,13 +29,21 @@ class register(CreateView):
 
 # Role-checking functions
 def is_admin(user):
-    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
+    return user.is_authenticated and user.userprofile.role == 'Admin'
 
 def is_librarian(user):
-    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
+    return user.is_authenticated and user.userprofile.role == 'Librarian'
 
 def is_member(user):
-    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
+    return user.is_authenticated and user.userprofile.role == 'Member'
+# def is_admin(user):
+#     return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
+
+# def is_librarian(user):
+#     return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
+
+# def is_member(user):
+#     return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
 
 # Protected views with role-based access control
 @user_passes_test(is_admin)
