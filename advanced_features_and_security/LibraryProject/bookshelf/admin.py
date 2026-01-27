@@ -1,16 +1,19 @@
 from django.contrib import admin
-from .models import Book
+from django.contrib.auth.admin import UserAdmin
+from .models import CustomUser
 
-# This class tells Django how the Book list should look
-class BookAdmin(admin.ModelAdmin):
-    # 1. Show these columns in the list
-    list_display = ('title', 'author', 'publication_year')
+# If you still have a Book model in bookshelf/models.py, keep this.
+# If you moved Book to another app, remove it.
+# from .models import Book
 
-    # 2. Add a search bar to find books by Title or Author
-    search_fields = ('title', 'author')
+class CustomUserAdmin(UserAdmin):
+    model = CustomUser
+    fieldsets = UserAdmin.fieldsets + (
+        (None, {'fields': ('date_of_birth', 'profile_photo')}),
+    )
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        (None, {'fields': ('date_of_birth', 'profile_photo')}),
+    )
 
-    # 3. Add a filter box on the right side
-    list_filter = ('publication_year', 'author')
-
-# Register the model with the custom settings
-admin.site.register(Book, BookAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)
+# admin.site.register(Book) # Comment this out if Book is missing from models.py
