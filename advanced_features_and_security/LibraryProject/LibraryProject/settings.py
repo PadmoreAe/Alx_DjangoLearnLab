@@ -129,3 +129,32 @@ LOGIN_REDIRECT_URL = 'list_books'
 LOGOUT_REDIRECT_URL = 'login'
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+
+
+
+
+
+
+# LibraryProject/settings.py
+
+# Set DEBUG to False in production
+DEBUG = False
+
+# Browser-side protection against XSS
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent the browser from guessing the content type (MIME sniffing)
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Prevent the site from being embedded in frames (Clickjacking protection)
+X_FRAME_OPTIONS = 'DENY'
+
+# Enforce HTTPS for cookies
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Content Security Policy (Optional but recommended - requires django-csp)
+# If you don't use the middleware, you can still document this approach.
+# MIDDLEWARE += ['csp.middleware.CSPMiddleware']
+# CSP_DEFAULT_SRC = ("'self'",)

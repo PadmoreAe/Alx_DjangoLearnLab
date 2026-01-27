@@ -20,3 +20,13 @@ Custom permissions defined in the `Book` model:
 - **Viewers**: Can only view books.
 - **Editors**: Can view, create, and edit books.
 - **Admins**: Full permissions (view, create, edit, delete).
+
+
+
+CSRF Protection: All POST forms include {% csrf_token %} to prevent unauthorized command execution.
+
+SQL Injection: All data access is handled via Django’s ORM to ensure parameterization.
+
+Secure Headers: Configured X_FRAME_OPTIONS, SECURE_CONTENT_TYPE_NOSNIFF, and SECURE_BROWSER_XSS_FILTER to protect against clickjacking and MIME sniffing.
+
+Cookie Security: SECURE flags are set to True to ensure session data is only sent over HTTPS.
