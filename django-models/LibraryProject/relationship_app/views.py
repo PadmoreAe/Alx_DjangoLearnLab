@@ -60,6 +60,26 @@ def librarian_view(request):
 def member_view(request):
     return render(request, "relationship_app/member_view.html")
 
+
+
+
+# Add these if they are missing or named differently
+def add_book(request):
+    # Your logic here
+    pass
+
+def edit_book(request, pk):
+    # Your logic here
+    pass
+
+def delete_book(request, pk):
+    # Your logic here
+    pass
+
+def register(request):
+    # Your registration logic here
+    pass
+
 # from django.shortcuts import render, get_object_or_404, redirect
 # from django.contrib.auth.forms import UserCreationForm
 # from django.urls import reverse_lazy
