@@ -158,3 +158,47 @@ SESSION_COOKIE_SECURE = True
 # If you don't use the middleware, you can still document this approach.
 # MIDDLEWARE += ['csp.middleware.CSPMiddleware']
 # CSP_DEFAULT_SRC = ("'self'",)
+
+
+
+
+
+
+# LibraryProject/settings.py
+
+# --- HTTPS and SSL Redirects ---
+
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# HTTP Strict Transport Security (HSTS)
+# Instructs the browser to only connect via HTTPS for the next year
+SECURE_HSTS_SECONDS = 31536000
+
+# Apply HSTS to all subdomains
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# Allow the site to be submitted to the browser HSTS preload list
+SECURE_HSTS_PRELOAD = True
+
+# --- Secure Cookies ---
+
+# Ensure session cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True
+
+# Ensure CSRF cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+
+# --- Secure Headers (Review/Reinforce) ---
+
+# Prevent the site from being embedded in frames to stop clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent browsers from MIME-sniffing the content type
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable browser XSS filtering
+SECURE_BROWSER_XSS_FILTER = True
+
+# Ensure Proxy SSL Header is trusted (common for Heroku/Nginx deployments)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
