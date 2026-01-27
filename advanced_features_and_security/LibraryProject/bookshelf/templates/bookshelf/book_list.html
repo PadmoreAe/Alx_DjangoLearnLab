@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book List</title>
+</head>
+<body>
+    <h1>Bookshelf</h1>
+
+    <form action="{% url 'search_books' %}" method="get">
+        <input type="text" name="q" placeholder="Search by title..." value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    <ul>
+        {% for book in books %}
+            <li>
+                <strong>{{ book.title }}</strong> by {{ book.author }} ({{ book.publication_year }})
+
+                {# Check for specific custom permissions before showing links #}
+                {% if perms.bookshelf.can_edit %}
+                    <a href="#">Edit</a>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No books found.</li>
+        {% endfor %}
+    </ul>
+
+    {% if perms.bookshelf.can_create %}
+        <a href="{% url 'create_book' %}">Add New Book</a>
+    {% endif %}
+</body>
+</html>
