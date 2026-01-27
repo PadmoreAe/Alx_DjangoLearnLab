@@ -24,15 +24,24 @@ class CustomUser(AbstractUser):
 
     objects = CustomUserManager()
 
-# 3. Book Model (To fix the admin import error)
+
+# ... (CustomUserManager and CustomUser classes remain as before) ...
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
 
+    class Meta:
+        # Define the specific custom permissions requested
+        permissions = [
+            ("can_view", "Can view book"),
+            ("can_create", "Can create book"),
+            ("can_edit", "Can edit book"),
+            ("can_delete", "Can delete book"),
+        ]
+
     def __str__(self):
         return self.title
-
 
 
 # from django.db import models
