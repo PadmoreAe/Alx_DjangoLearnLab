@@ -141,6 +141,17 @@ AUTH_USER_MODEL = 'bookshelf.CustomUser'
 # Set DEBUG to False in production
 DEBUG = False
 
+
+# LibraryProject/settings.py
+
+# When DEBUG is False, you must provide a list of allowed hosts.
+# For local development/testing:
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+# If you are deploying or need to allow any host (not recommended for production):
+# ALLOWED_HOSTS = ['*']
+
+
 # Browser-side protection against XSS
 SECURE_BROWSER_XSS_FILTER = True
 
