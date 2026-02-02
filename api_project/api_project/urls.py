@@ -17,9 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from api.views import home
+from rest_framework.authtoken.views import obtain_auth_token
+
 
 urlpatterns = [
     path("",home),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),  # This prefixes my endpoints with /api/
+    path('api-token-auth/', obtain_auth_token),
+    
+    path('api-auth/', include('rest_framework.urls')), # Adds a "Login" button to the API pages
 ]
