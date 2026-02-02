@@ -25,6 +25,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),  # This prefixes my endpoints with /api/
     path('api-token-auth/', obtain_auth_token),
-    
-    path('api-auth/', include('rest_framework.urls')), # Adds a "Login" button to the API pages
 ]
