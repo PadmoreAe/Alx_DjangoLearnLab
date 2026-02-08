@@ -3,6 +3,7 @@ from rest_framework import generics, viewsets, permissions
 from .models import Book
 from .serializers import BookSerializer
 from django.http import JsonResponse
+from rest_framework.authentication import TokenAuthentication
 
 
 class BookList(generics.ListAPIView):
@@ -21,19 +22,7 @@ def home(request):
 
 # New ViewSet for full CRUD operations
 class BookViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing book instances.
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-
-
-
-
-
-
-class BookViewSet(viewsets.ModelViewSet):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    # Only authenticated users can perform CRUD operations
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
