@@ -5,16 +5,14 @@ from django.contrib import messages
 from .forms import UserUpdateForm, ProfileUpdateForm
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView
-)
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from .models import Post
 from .forms import CommentForm
 
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Comment, Post
+from .forms import CommentForm
 
 def register(request):
     if request.method == 'POST':
@@ -109,3 +107,42 @@ def add_comment(request, pk):
             comment.save()
             return redirect('post-detail', pk=post.pk)
     return redirect('post-detail', pk=post.pk)
+
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('post-detail', kwargs={'pk': self.kwargs['pk']})
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
+
+    def get_success_url(self):
+        return reverse_lazy('post-detail', kwargs={'pk': self.get_object().post.id})
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
+
+    def get_success_url(self):
+        return reverse_lazy('post-detail', kwargs={'pk': self.get_object().post.id})
