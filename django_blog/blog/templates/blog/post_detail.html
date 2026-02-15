@@ -1,0 +1,45 @@
+{% extends "blog/base.html" %}
+{% block content %}
+  <article>
+    <h2>{{ object.title }}</h2>
+    <p>{{ object.content }}</p>
+  </article>
+
+  <hr>
+  <h3>Comments</h3>
+  {% for comment in post.comments.all %}
+    <p><strong>{{ comment.author }}</strong>: {{ comment.content }}</p>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+    <h4>Add a comment:</h4>
+    <form method="POST" action="{% url 'add-comment' post.pk %}">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <button type="submit">Submit</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to leave a comment.</p>
+  {% endif %}
+
+  <article>
+    <h1>{{ object.title }}</h1>
+    <p>By {{ object.author }} on {{ object.published_date }}</p>
+    <div class="content">
+        {{ object.content }}
+    </div>
+    <hr>
+    {% if user == object.author %}
+        <a href="{% url 'post-update' object.id %}">Edit Post</a> |
+        <a href="{% url 'post-delete' object.id %}">Delete Post</a>
+    {% endif %}
+</article>
+{% endblock %}
+
+
+
+
+
+
