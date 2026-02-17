@@ -2,3 +2,15 @@ venv/
 __pycache__/
 *.pyc
 .env
+
+
+
+
+"token":"4331edfa5baf3f1c4084a0596b97f0644d61772b"
+
+curl -X POST http://127.0.0.1:8000/api/accounts/login/ \
+     -H "Content-Type: application/json" \
+     -d '{
+           "username": "padmore_dev",
+           "password": "MyPassword123"
+         }'
