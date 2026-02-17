@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class RegisterSerializer(serializers.ModelSerializer):
     # We want to handle the password separately for security
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField('')
 
     class Meta:
         model = User
