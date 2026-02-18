@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     # Internal apps
     'accounts',
+    'posts',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,  # Limits list results to 10 per page
 }
 
 AUTH_USER_MODEL = 'accounts.User'
