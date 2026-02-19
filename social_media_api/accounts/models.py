@@ -15,3 +15,7 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+# Provide an alias expected elsewhere in the codebase/tests
+# so imports like `from .models import CustomUser` work.
+CustomUser = User

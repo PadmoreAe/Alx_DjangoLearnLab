@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Internal apps
     'accounts',
     'posts',
+    'notifications',
 ]
 
 MIDDLEWARE = [

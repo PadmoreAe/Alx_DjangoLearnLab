@@ -26,4 +26,5 @@ urlpatterns = [
     # path('', RedirectView.as_view(url='/api/accounts/register/')),
     path('', api_root, name='api-home'),
     path('api/', include('posts.urls')),
+    path('api/notifications/', include('notifications.urls')),
 ]
